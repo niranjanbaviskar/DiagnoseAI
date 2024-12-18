@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+/* Global styles for scrolling */
+html, body {
+  height: 100%; /* Ensure full height for the document */
+  overflow-y: scroll; /* Enable vertical scrolling */
+  scroll-behavior: smooth; /* Smooth scrolling effect */
+  margin: 0; /* Remove default margin */
+}
+
+* {
+  box-sizing: border-box; /* Ensure consistent box-sizing */
+}
