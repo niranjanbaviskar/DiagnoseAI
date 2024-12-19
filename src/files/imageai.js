@@ -16,11 +16,11 @@ function ProcessImage() {
     const file = e.target.files[0];
 
     if (file) {
-      if (file.name !== 'img100.png') {
-        setIsCorrectXray(false);
-        setUploadedImage(null);
-        return;
-      }
+      // if (file.name !== 'img100.png') {
+      //   setIsCorrectXray(false);
+      //   setUploadedImage(null);
+      //   return;
+      // }
 
       const reader = new FileReader();
       reader.onload = (event) => {
