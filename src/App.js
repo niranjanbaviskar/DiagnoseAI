@@ -5,6 +5,7 @@ import UploadAnalyze from './pages/UploadAnalyze';
 import PatientData from './files/data';
 import Information from './files/information';
 import ImageAI from './files/imageai';
+import HospitalLocator from './files/HospitalLocator';
 
 // import Report from './files/Report';
 // import Results from './pages/Results';
@@ -26,6 +27,7 @@ function App() {
         {/* <Route path="/report" element={<Report />} /> */}
         <Route path="/patient-data" element={<PatientData />} />
         <Route path="/imageai" element={<ImageAI />} />
+        <Route path="/HospitalLocator" element={<HospitalLocator />} />
         {/* <Route path="/results" element={<Results />} />
         <Route path="/contact-us" element={<ContactUs />} /> */}
       </Routes>
