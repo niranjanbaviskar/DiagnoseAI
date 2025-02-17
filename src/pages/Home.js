@@ -60,7 +60,7 @@ function Home() {
               transition: 'all 0.3s ease',
             }}
           >
-            DiagnoseAI
+            RuralCare AI
           </h1>
           <p
             style={{
@@ -69,7 +69,7 @@ function Home() {
               transition: 'all 0.3s ease',
             }}
           >
-            Precision Diagnosis, Powered by Intelligence
+            Analysis and Unique Features for Traveling Doctors
           </p>
         </div>
       </div>
@@ -261,6 +261,7 @@ function Home() {
             width: '80%',
             maxWidth: '900px',
             textAlign: 'center',
+            marginBottom: '2rem',
           }}
         >
           <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2.2rem' }}>Bone fracture detection</h2>
@@ -292,6 +293,48 @@ function Home() {
             </button>
           </Link>
         </div>
+
+        <div
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            padding: '2rem',
+            borderRadius: '10px',
+            width: '80%',
+            maxWidth: '900px',
+            textAlign: 'center',
+          }}
+        >
+          <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2.2rem' }}>Get Nearest Hospital</h2>
+          <p>
+            Click below and Get the Nearest location of hospital that help to get the fast treatment to the patient 
+          </p>
+          <Link to="/HospitalLocator">
+            <button
+              style={{
+                backgroundColor: '#0056b3',
+                color: 'white',
+                padding: '0.75rem 1.5rem',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                transition: 'transform 0.3s ease, background-color 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#0056b3';
+                e.target.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#007bff';
+                e.target.style.transform = 'scale(1)';
+              }}
+            >
+              Get Started
+            </button>
+          </Link>
+        </div>
+
+        
       </div>
     </div>
   );
