@@ -2,170 +2,97 @@ import React, { useState, useEffect } from 'react';
 import { auth, db } from '../firebaseConfig';
 import { collection, doc, setDoc, getDoc } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';
+import { QRCodeCanvas } from 'qrcode.react';
 
 function Info() {
   const { userId } = useParams();
-  const [infoDetails, setInfoDetails] = useState({
-    age: '',
-        weight: '',
-        disease: '',
-        durationofDisease: '',
-        BloodPressure: '',
-        MedicalHistory: '',
-        mri: '',
-        ctscan: '',
-        sonography: '',
-        BloodTestReport: '',
-        PriviousDrRecipt: '',
-        BillingInformationRecipt: '',
-  });
+  const [age, setAge] = useState('');
+  const [weight, setWeight] = useState('');
+  const [disease, setDisease] = useState('');
+  const [durationofDisease, setDurationofDisease] = useState('');
+  const [bloodPressure, setBloodPressure] = useState('');
+  const [medicalHistory, setMedicalHistory] = useState('');
+  const [mri, setMri] = useState('');
+  const [ctscan, setCtscan] = useState('');
+  const [sonography, setSonography] = useState('');
+  const [bloodTestReport, setBloodTestReport] = useState('');
+  const [previousDrReceipt, setPreviousDrReceipt] = useState('');
+  const [billingInformationReceipt, setBillingInformationReceipt] = useState('');
+  const [qrData, setQrData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const docRef = doc(db, 'patientDetails', userId);
       const docSnap = await getDoc(docRef);
-
       if (docSnap.exists()) {
-        setInfoDetails(docSnap.data());
+        const data = docSnap.data();
+        setAge(data.age);
+        setWeight(data.weight);
+        setDisease(data.disease);
+        setDurationofDisease(data.durationofDisease);
+        setBloodPressure(data.BloodPressure);
+        setMedicalHistory(data.MedicalHistory);
+        setMri(data.mri);
+        setCtscan(data.ctscan);
+        setSonography(data.sonography);
+        setBloodTestReport(data.BloodTestReport);
+        setPreviousDrReceipt(data.PriviousDrRecipt);
+        setBillingInformationReceipt(data.BillingInformationRecipt);
+        setQrData(JSON.stringify(data));
       }
     };
-
     fetchData();
   }, [userId]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInfoDetails((prev) => ({ ...prev, [name]: value }));
-  };
-
   const handleSubmission = async () => {
     try {
-      const userId = auth.currentUser.uid; // Get the logged-in user's UID
-      const patientCollection = collection(db, 'patientDetails');
-      const userDoc = doc(patientCollection, userId); // Create/Update document with userId as the key
-      await setDoc(userDoc, infoDetails); // Save infoDetails object
+      const userId = auth.currentUser.uid;
+      const infoDetails = {
+        age, weight, disease, durationofDisease,
+        BloodPressure: bloodPressure, MedicalHistory: medicalHistory,
+        mri, ctscan, sonography,
+        BloodTestReport: bloodTestReport,
+        PriviousDrRecipt: previousDrReceipt,
+        BillingInformationRecipt: billingInformationReceipt,
+      };
+      await setDoc(doc(collection(db, 'patientDetails'), userId), infoDetails);
       alert('Information submitted successfully!');
-      setInfoDetails({
-        age: '',
-        weight: '',
-        disease: '',
-        durationofDisease: '',
-        BloodPressure: '',
-        MedicalHistory: '',
-        mri: '',
-        ctscan: '',
-        sonography: '',
-        BloodTestReport: '',
-        PriviousDrRecipt: '',
-        BillingInformationRecipt: '',
-
-      }); // Reset the form
+      setQrData(JSON.stringify(infoDetails));
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
   };
 
   return (
-    <div style={{  padding: '1.5rem',
-      textAlign: 'center',
-      background: 'linear-gradient(135deg, #d4fc79, #96e6a1)',
-      // backgroundColor: '#00ff00', // Light gray background for the whole form
-      minHeight: '90vh', }}>
-      <h1 style={{ color: 'black', fontSize: '3rem' }}>Patient Information</h1>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1rem',
-          margin: '2rem 0',
-        }}
-      >
-        {[
-          { label: 'Age', type: 'number', name: 'age', value: infoDetails.age },
-          { label: 'Weight', type: 'number', name: 'weight', value: infoDetails.weight },
-          { label: 'Disease', type: 'text', name: 'disease', value: infoDetails.disease },
-          { label: 'Duration of Disease(days)', type: 'text', name: 'durationofDisease', value: infoDetails.durationofDisease },
-          { label: 'Blood Pressure', type: 'number', name: 'Bloodpressure', value: infoDetails.Bloodpressure },
-          { label: 'Medical History', type: 'text', name: 'Medicalhistory', value: infoDetails.Medicalhistory },
-        ].map((field, index) => (
-          <div
-            key={index}
-            style={{
-              backgroundColor: '#FFB6C1',
-              border: '1px solid #ddd',
-              padding: '1rem',
-              borderRadius: '8px',
-            }}
-          >
-            <h4 style={{ color: 'black', marginBottom: '0.5rem' }}>{field.label}</h4>
-            <input
-              type={field.type}
-              name={field.name}
-              value={field.value}
-              onChange={handleInputChange}
-              style={{
-                width: '90%',
-                padding: '0.5rem',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-              }}
-            />
-          </div>
-        ))}
-        {[
-  { label: 'MRI', name: 'mri' },
-  { label: 'CT Scan', name: 'ctscan' },
-  { label: 'Sonography', name: 'sonography' },
-  { label: 'Blood Test Report', name: 'Blood Test Report' },
-  { label: 'Privious Dr. Recipt', name: 'Privious Dr. Recipt' },
-  { label: 'Billing Information Recipt', name: 'Billing Information Recipt' },
-].map((field, index) => (
-  <div
-    key={index}
-    style={{
-      backgroundColor: '#87CEFA',
-      border: '1px solid #ddd',
-      padding: '1rem',
-      borderRadius: '8px',
-    }}
-  >
-    <h4 style={{ color: 'black', marginBottom: '0.5rem' }}>{field.label}</h4>
-    <input
-      type="url"
-      placeholder={`Enter ${field.label} link`}
-      name={field.name}
-      value={infoDetails[field.name]}
-      onChange={(e) =>
-        setInfoDetails((prev) => ({
-          ...prev,
-          [field.name]: e.target.value,
-        }))
-      }
-      style={{
-        width: '90%',
-        padding: '0.5rem',
-        borderRadius: '4px',
-        border: '1px solid #ccc',
-        
-      }}
-    />
-  </div>
-))}
-
-      </div>
-      <button
-        onClick={handleSubmission}
-        style={{
-          padding: '0.75rem 2rem',
-          backgroundColor: '#007bff',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
-      >
-        Save
-      </button>
+    <div style={{ padding: '1.5rem', textAlign: 'center', minHeight: '90vh', backgroundColor: '#ADD8E6' }}>
+      <h1>Patient Information</h1>
+      {[['Age', age, setAge], ['Weight', weight, setWeight], ['Disease', disease, setDisease],
+        ['Duration of Disease', durationofDisease, setDurationofDisease],
+        ['Blood Pressure', bloodPressure, setBloodPressure],
+        ['Medical History', medicalHistory, setMedicalHistory],
+        ['MRI Report Link', mri, setMri], ['CT Scan', ctscan, setCtscan], ['Sonography', sonography, setSonography],
+        ['Blood Test Report Link', bloodTestReport, setBloodTestReport],
+        ['Previous Dr. Receipt Link', previousDrReceipt, setPreviousDrReceipt],
+        ['Billing Information Receipt Link', billingInformationReceipt, setBillingInformationReceipt]
+      ].map(([label, value, setter], index) => (
+        <div key={index} style={{ marginBottom: '1rem' }}>
+          <h4>{label}</h4>
+          <input
+            type="text"
+            placeholder={`Enter ${label}`}
+            value={value}
+            onChange={(e) => setter(e.target.value)}
+            style={{ padding: '0.5rem', width: '100%' }}
+          />
+        </div>
+      ))}
+      <button onClick={handleSubmission} style={{ padding: '0.75rem 2rem', cursor: 'pointer' }}>Save</button>
+      {qrData && (
+        <div style={{ marginTop: '1rem' }}>
+          <h3>Your QR Code:</h3>
+          <QRCodeCanvas value={qrData} size={256} />
+        </div>
+      )}
     </div>
   );
 }
