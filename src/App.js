@@ -6,6 +6,7 @@ import PatientData from './files/data';
 import Information from './files/information';
 import ImageAI from './files/imageai';
 import HospitalLocator from './files/HospitalLocator';
+import ConectWithDoctor from './files/ConectWithDoctor' ;
 
 // import Report from './files/Report';
 // import Results from './pages/Results';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/patient-data" element={<PatientData />} />
         <Route path="/imageai" element={<ImageAI />} />
         <Route path="/HospitalLocator" element={<HospitalLocator />} />
+        <Route path="/ConectWithDoctor" element={<ConectWithDoctor />} />
         {/* <Route path="/results" element={<Results />} />
         <Route path="/contact-us" element={<ContactUs />} /> */}
       </Routes>
