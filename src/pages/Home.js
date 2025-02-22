@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import image1 from '../img/img2.jpg'; // Adjust the path based on your folder structure
+import image1 from '../img/img4.png'; // Adjust the path based on your folder structure
 import videoSrc from '../img/vid2.mp4';
 import logo from '../img/logo34.png'; // Adjust the path to your logo
 
@@ -161,6 +161,7 @@ function Home() {
           padding: '2rem',
           textAlign: 'center',
           backgroundImage: `url(${image1})`,
+          
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           color: 'white',
@@ -169,6 +170,7 @@ function Home() {
           flexDirection: 'column',
           justifyContent: 'start',
           alignItems: 'center',
+          
         }}
       >
         <div
@@ -302,6 +304,7 @@ function Home() {
             width: '80%',
             maxWidth: '900px',
             textAlign: 'center',
+            marginBottom: '2rem',
           }}
         >
           <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2.2rem' }}>Get Nearest Hospital</h2>
@@ -333,8 +336,46 @@ function Home() {
             </button>
           </Link>
         </div>
-
-        
+        <div
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            padding: '2rem',
+            borderRadius: '10px',
+            width: '80%',
+            maxWidth: '900px',
+            textAlign: 'center',
+          }}
+        >
+          <h2 style={{ color: 'white', marginBottom: '1rem', fontSize: '2.2rem' }}>Connect With Doctor</h2>
+          <p>
+          Instantly connect with doctors for expert medical advice, quick consultations, and real-time health guidance anytime, anywhere with ease. Click below! 
+          </p>
+          <Link to="/ConectWithDoctor">
+            <button
+              style={{
+                backgroundColor: '#0056b3',
+                color: 'white',
+                padding: '0.75rem 1.5rem',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                transition: 'transform 0.3s ease, background-color 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#0056b3';
+                e.target.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#007bff';
+                e.target.style.transform = 'scale(1)';
+              }}
+            >
+              Get Started
+            </button>
+          </Link>
+        </div>
+              
       </div>
     </div>
   );
