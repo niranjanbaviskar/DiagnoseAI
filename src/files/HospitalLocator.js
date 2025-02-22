@@ -21,7 +21,7 @@ function HospitalLocator() {
       borderRadius: '16px',
       boxShadow: isHovered ? '0px 8px 20px rgba(0, 0, 0, 0.2)' : '0px 4px 10px rgba(0, 0, 0, 0.1)',
       textAlign: 'center',
-      maxWidth: '500px',
+      maxWidth: '600px',
       margin: '2rem auto',
       transition: 'transform 0.3s, box-shadow 0.3s',
     },
@@ -43,7 +43,8 @@ function HospitalLocator() {
       transition: 'transform 0.3s',
     },
     searchForm: {
-      marginBottom: '1rem',
+      marginBottom: '1.3rem',
+      
     },
     input: {
       padding: '0.5rem',
